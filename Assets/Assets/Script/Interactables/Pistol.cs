@@ -94,12 +94,23 @@ public class Pistol : Interactable
 
         RaycastHit hit;
         if (Physics.Raycast(muzzlePoint.position, -muzzlePoint.forward, out hit, range))
-        { 
-            if (hit.collider.CompareTag("Enemy"))
+        {
+            Debug.Log("Hit " + hit.collider.name);
+            
+            EnemyHitbox hitbox = hit.collider.GetComponent<EnemyHitbox>();
+            if (hitbox != null)
             {
-                Debug.Log("Hit " + hit.collider.name);
+                hitbox.RegisterHit(25f, hit.point, hit.normal); // Deal 25 damage
             }
-            else CreateBulletHole(hit.point, hit.normal, hit.collider.transform);
+            Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 forceDirection = hit.normal * -1; // Opposite of the surface normal
+                float forceAmount = 5f; // Adjust this value for more or less impact
+
+                rb.AddForceAtPosition(forceDirection * forceAmount, hit.point, ForceMode.Impulse);
+            }
+            CreateBulletHole(hit.point, hit.normal, hit.collider.transform);
             
         }
     }
