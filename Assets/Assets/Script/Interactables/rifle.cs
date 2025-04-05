@@ -1,10 +1,10 @@
 using UnityEngine;
 using TMPro;
-public class Pistol : Interactable
+public class rifle : Interactable
 {
-    public Transform PlayerTransform;
+   public Transform PlayerTransform;
     
-    public GameObject Gun;
+    public GameObject Rifle;
     public float drop = 2f;
     
     public float fireRate = 0.2f;
@@ -18,17 +18,14 @@ public class Pistol : Interactable
     public float moveSpeed = 30f; // Speed of movement
     public float rotateSpeed = 30f; // Speed of rotation
 
-
     public AudioSource gunSound;
-    
-    
     [SerializeField]
     private TextMeshProUGUI Ammotext;
     public int ammo = 7;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Gun.GetComponent<Rigidbody>().isKinematic = false;
+        Rifle.GetComponent<Rigidbody>().isKinematic = false;
         gunSound = GetComponentInChildren<AudioSource>();
     }
 
@@ -75,8 +72,8 @@ public class Pistol : Interactable
     {
         
         PlayerTransform.DetachChildren();
-        Gun.transform.eulerAngles = new Vector3(Gun.transform.eulerAngles.x, Gun.transform.eulerAngles.y, Gun.transform.eulerAngles.z - 45);
-        Gun.GetComponent<Rigidbody>().isKinematic = false;
+        Rifle.transform.eulerAngles = new Vector3(Rifle.transform.eulerAngles.x, Rifle.transform.eulerAngles.y, Rifle.transform.eulerAngles.z - 45);
+        Rifle.GetComponent<Rigidbody>().isKinematic = false;
     }
     
     void EquipObject()
@@ -84,10 +81,10 @@ public class Pistol : Interactable
         if (PlayerTransform.childCount == 0 )
         {
           
-          Gun.GetComponent<Rigidbody>().isKinematic = true;
-          Gun.transform.position = PlayerTransform.transform.position;
-          Gun.transform.rotation = PlayerTransform.transform.rotation;
-          Gun.transform.SetParent(PlayerTransform);  
+          Rifle.GetComponent<Rigidbody>().isKinematic = true;
+          Rifle.transform.position = PlayerTransform.transform.position;
+          Rifle.transform.rotation = PlayerTransform.transform.rotation;
+          Rifle.transform.SetParent(PlayerTransform);  
         }
         
     }
